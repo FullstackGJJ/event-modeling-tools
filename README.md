@@ -37,25 +37,35 @@ Setting: We are in the office where the underlying data format provided by Data 
 Scenario 1: A successful conversion
 
 ```
-Designer: Converter, convert DocumentTemplate:"Awesome.json" from OldDocumentDataFormat:"mass effect 1" to NewDocumentDataFormat:"mass effect 2"
-Converter: (convert request recieved from Designer)
-		   Data Provider, getSubstitutionRule for OldDocumentDataFormat:"mass effect 1" to NewDocumentDataFormat:"mass effect 2"
-Data Provider: (getSubstitutionRule request received from Converter)
-			   Converter, getSubstitutionRule response is SubstitutionRule:"mass effect rule"
-Converter: (getSubstitutionRule response SubstitutionRule:"mass effect rule" received from Data Provider)
-		   (apply SubstitutionRule:"mass effect rule" to DocumentTemplate:"Awesome.json")
-		   Reporting, render DocumentTemplate:"Awesome.json"
-Reporting: (render request received from Converter)
-		   Converter, render response is DocumentPdf:"Awesome.pdf"
-Converter: (render response DocumentPdf:"Awesome.pdf" received from Reporting)
-		   Validator, compare DocumentPdf:"Awesome.pdf" to reference DocumentPdf:"Awesome.pdf"
-Validator: (compare request received from Converter)
-		   Converter, compare response is "Success"
-Converter: (compare response "Success" received from Validator)
-		   Repository, store new DocumentTemplate:"Awesome.json" over existing one
-Repository: (store request received from Converter)
-			Converter, store response is "Success"
-Converter: (store response "Success" received from Repository)
-		   Designer, convert response is "Success"
+Designer: 
+  - Converter, convert DocumentTemplate:"Awesome.json" from OldDocumentDataFormat:"mass effect 1" to NewDocumentDataFormat:"mass effect 2"
+Converter: 
+  - (convert request recieved from Designer)
+  - Data Provider, getSubstitutionRule for OldDocumentDataFormat:"mass effect 1" to NewDocumentDataFormat:"mass effect 2"
+Data Provider: 
+  - (getSubstitutionRule request received from Converter)
+  - Converter, getSubstitutionRule response is SubstitutionRule:"mass effect rule"
+Converter: 
+  - (getSubstitutionRule response SubstitutionRule:"mass effect rule" received from Data Provider)
+  - (apply SubstitutionRule:"mass effect rule" to DocumentTemplate:"Awesome.json")
+  - Reporting, render DocumentTemplate:"Awesome.json"
+Reporting: 
+  - (render request received from Converter)
+  - Converter, render response is DocumentPdf:"Awesome.pdf"
+Converter: 
+  - (render response DocumentPdf:"Awesome.pdf" received from Reporting)
+  - Validator, compare DocumentPdf:"Awesome.pdf" to reference DocumentPdf:"Awesome.pdf"
+Validator: 
+  - (compare request received from Converter)
+  - Converter, compare response is "Success"
+Converter: 
+  - (compare response "Success" received from Validator)
+  - Repository, store new DocumentTemplate:"Awesome.json" over existing one
+Repository: 
+  - (store request received from Converter)
+  - Converter, store response is "Success"
+Converter: 
+  - (store response "Success" received from Repository)
+  - Designer, convert response is "Success"
 Designer: (convert response received from Converter)
 ```
