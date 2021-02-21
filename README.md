@@ -70,5 +70,6 @@ Repository:
 Converter: 
   - (store response "Success" received from Repository)
   - Designer, convert response is "Success"
-Designer: (convert response received from Converter)
+Designer: 
+  - (convert response received from Converter)
 ```
