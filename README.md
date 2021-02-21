@@ -12,6 +12,8 @@ That style of left to right representation of events unfolding horizontally in a
 
 What if you don't have a sliding frame? Imagine you have a long workflow/process that calls upon many many things, does it make sense to have a diagram that goes from left to right to infinity? Not really, if you're looking at a static frame, it might make more sense to read chart or text from top to bottom. What kind of physical medium would that look like in current day (02/21/2021)? I suspect that a comic book or old fashion 8mm film still frames would be a good visual representation that goes from top to bottom, and a stage play would be a good text representation for how events unfold in a format that goes from top to bottom (referencing the stage_play_sample.pdf as an example).
 
+-----------
+
 A Converter Story
 
 Cast of Actors:
@@ -34,6 +36,7 @@ Setting: We are in the office where the underlying data format provided by Data 
 
 Scenario 1: A successful conversion
 
+```
 Designer: Converter, convert DocumentTemplate:"Awesome.json" from OldDocumentDataFormat:"mass effect 1" to NewDocumentDataFormat:"mass effect 2"
 Converter: (convert request recieved from Designer)
 		   Data Provider, getSubstitutionRule for OldDocumentDataFormat:"mass effect 1" to NewDocumentDataFormat:"mass effect 2"
@@ -55,3 +58,4 @@ Repository: (store request received from Converter)
 Converter: (store response "Success" received from Repository)
 		   Designer, convert response is "Success"
 Designer: (convert response received from Converter)
+```
