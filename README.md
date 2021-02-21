@@ -16,15 +16,18 @@ What if you don't have a sliding frame? Imagine you have a long workflow/process
 
 A Converter Story
 
-Cast of Actors:
+**Cast of Actors**:
+
 Users: 
   - Designers: People who design document templates
+
 Systems:
   - Reporting: System that renders DocumentTemplates into DocumentPdfs
   - Converter: System that converts OldDocumentDataFormat reference to NewDocumentDataFormat in DocumentTemplates
   - Repository: System that stores document DocumentTemplates
   - Data Provider: System that provides data relevant for DocumentTemplates
   - Validator: System that validates if DocumentTemplates produce the the same pdf
+
 Data:
   - DocumentTemplate
   - DocumentPdf
