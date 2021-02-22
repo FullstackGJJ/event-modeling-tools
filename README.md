@@ -12,6 +12,8 @@ That style of left to right representation of events unfolding horizontally in a
 
 What if you don't have a sliding frame? Imagine you have a long workflow/process that calls upon many many things, does it make sense to have a diagram that goes from left to right to infinity? Not really, if you're looking at a static frame, it might make more sense to read chart or text from top to bottom. What kind of physical medium would that look like in current day (02/21/2021)? I suspect that a comic book or old fashion 8mm film still frames would be a good visual representation that goes from top to bottom, and a stage play would be a good text representation for how events unfold in a format that goes from top to bottom (referencing the stage_play_sample.pdf as an example).
 
+The syntax I'm following is anything inside () is an event. Statements that announce a request are commands. Statements that announce a response are responses.
+
 -----------
 
 A Converter Story
@@ -41,29 +43,29 @@ Scenario 1: A successful conversion
 
 ```
 Designer: 
-  - Converter, convert DocumentTemplate:"Awesome.json" from OldDocumentDataFormat:"mass effect 1" to NewDocumentDataFormat:"mass effect 2"
+  - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
 Converter: 
   - (convert request recieved from Designer)
-  - Data Provider, getSubstitutionRule for OldDocumentDataFormat:"mass effect 1" to NewDocumentDataFormat:"mass effect 2"
+  - Data Provider, request getSubstitutionRule massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
 Data Provider: 
   - (getSubstitutionRule request received from Converter)
-  - Converter, getSubstitutionRule response is SubstitutionRule:"mass effect rule"
+  - Converter, getSubstitutionRule response is massEffectRule:SubstitutionRule
 Converter: 
-  - (getSubstitutionRule response SubstitutionRule:"mass effect rule" received from Data Provider)
-  - (apply SubstitutionRule:"mass effect rule" to DocumentTemplate:"Awesome.json")
-  - Reporting, render DocumentTemplate:"Awesome.json"
+  - (getSubstitutionRule response massEffectRule:SubstitutionRule received from Data Provider)
+  - (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)
+  - Reporting, request render awesomeJson:DocumentTemplate
 Reporting: 
   - (render request received from Converter)
-  - Converter, render response is DocumentPdf:"Awesome.pdf"
+  - Converter, render response is awesomePdf:DocumentPdf
 Converter: 
-  - (render response DocumentPdf:"Awesome.pdf" received from Reporting)
-  - Validator, compare DocumentPdf:"Awesome.pdf" to reference DocumentPdf:"Awesome.pdf"
+  - (render response awesomePdf:DocumentPdf received from Reporting)
+  - Validator, request compare awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf
 Validator: 
   - (compare request received from Converter)
   - Converter, compare response is "Success"
 Converter: 
   - (compare response "Success" received from Validator)
-  - Repository, store new DocumentTemplate:"Awesome.json" over existing one
+  - Repository, request store awesomeJson:DocumentTemplate
 Repository: 
   - (store request received from Converter)
   - Converter, store response is "Success"
@@ -73,3 +75,58 @@ Converter:
 Designer: 
   - (convert response received from Converter)
 ```
+
+What's cool about this way of defining the system's workflow and scenarios is that you can create tools that filter based on the perspectives. Say for example, I want to only see the perspective of the Converter, this would be the result:
+
+```
+..
+..
+Converter: 
+  - (convert request recieved from Designer)
+  - Data Provider, request getSubstitutionRule massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+  - (getSubstitutionRule response massEffectRule:SubstitutionRule received from Data Provider)
+  - (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)
+  - Reporting, request render awesomeJson:DocumentTemplate
+  - (render response awesomePdf:DocumentPdf received from Reporting)
+  - Validator, request compare awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf
+  - (compare response "Success" received from Validator)
+  - Repository, request store awesomeJson:DocumentTemplate
+  - (store response "Success" received from Repository)
+  - Designer, convert response is "Success"
+..
+..
+```
+
+The double dots represent that there are other events happening before and after Converter action
+
+I can do the same for the other systems and define what their roles are meant to be, make them pass simulated or real Scenario 1 workflows and have good specifications for independent teams to work on (the huge attraction of event modeling). 
+
+Based on the full definition above, this is what the event model stage play would look like from the perspective of Designer and Repository, respectively, and together
+
+```
+Designer: 
+  - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+  - (convert response received from Converter)
+```
+
+```
+Repository: 
+  - (store request received from Converter)
+  - Converter, store response is "Success"
+```
+
+```
+Designer: 
+  - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+..
+..
+Repository: 
+  - (store request received from Converter)
+  - Converter, store response is "Success"
+..
+..
+Designer: 
+  - (convert response received from Converter)
+```
+
+This is a great way for a designer to see different scopes of how the system interacts
