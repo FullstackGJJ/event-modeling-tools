@@ -1,0 +1,53 @@
+Users:
+  - Designers: People who design document templates
+
+Systems:
+  - Reporting: System that renders DocumentTemplates into DocumentPdfs
+  - Converter: System that converts OldDocumentDataFormat reference to NewDocumentDataFormat in DocumentTemplates
+  - Repository: System that stores document DocumentTemplates
+  - Data Provider: System that provides data relevant for DocumentTemplates
+  - Validator: System that validates if DocumentTemplates produce the the same pdf
+
+Data:
+  - DocumentTemplate
+  - DocumentPdf
+  - OldDocumentDataFormat
+  - NewDocumentDataFormat
+  - SubstitutionRule
+
+Setting: We are in the office where the underlying data format provided by Data Provider has changed, thereby changing how the DocumentTemplate needs to define its DocumentData. We want a system that can convert all existing DocumentTemplates' reference of OldDocumentDataFormat the NewDocumentDataFormat that the Data Provider is going to move to and also ensure that the DocumentPdf that get rendered is still correct.
+
+Scope: Ecosystem
+
+Designer: 
+  - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+Converter: 
+  - (convert request recieved from Designer)
+  - Data Provider, request getSubstitutionRule massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+Data Provider: 
+  - (getSubstitutionRule request received from Converter)
+  - Converter, getSubstitutionRule response is massEffectRule:SubstitutionRule
+Converter: 
+  - (getSubstitutionRule response massEffectRule:SubstitutionRule received from Data Provider)
+  - (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)
+  - Reporting, request render awesomeJson:DocumentTemplate
+Reporting: 
+  - (render request received from Converter)
+  - Converter, render response is awesomePdf:DocumentPdf
+Converter: 
+  - (render response awesomePdf:DocumentPdf received from Reporting)
+  - Validator, request compare awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf
+Validator: 
+  - (compare request received from Converter)
+  - Converter, compare response is "Success"
+Converter: 
+  - (compare response "Success" received from Validator)
+  - Repository, request store awesomeJson:DocumentTemplate
+Repository: 
+  - (store request received from Converter)
+  - Converter, store response is "Success"
+Converter: 
+  - (store response "Success" received from Repository)
+  - Designer, convert response is "Success"
+Designer: 
+  - (convert response received from Converter)
