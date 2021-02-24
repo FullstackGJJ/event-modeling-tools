@@ -1,4 +1,5 @@
 use quicli::prelude::*;
+use std::fs;
 use structopt::StructOpt;
 
 
@@ -19,8 +20,8 @@ struct Cli {
 
 fn main() -> CliResult {
     let args = Cli::from_args();
-    read_file(&args.file)?
-        .lines()
-        .for_each(|line| println!("{}", line));
+    let lines = fs::read_to_string(&args.file)?;
+    let lines = lines.lines();
+    lines.for_each(|line| println!("{}", line));
     Ok(())
 }
