@@ -10,8 +10,8 @@ struct Cli {
     /// The file to read
     file: String,
 
-    /// Which perspective to filter
-    #[structopt(long = "filter", short = "f", default_value = "")]
+    /// Which perspectives to filter
+    #[structopt(long = "filters", short = "f", default_value = "")]
     filter: String,
 
     #[structopt(flatten)]

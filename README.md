@@ -30,18 +30,22 @@ Systems:
   - Data Provider: System that provides data relevant for DocumentTemplates
   - Validator: System that validates if DocumentTemplates produce the the same pdf
 
-Data:
-  - DocumentTemplate
-  - DocumentPdf
-  - OldDocumentDataFormat
-  - NewDocumentDataFormat
-  - SubstitutionRule
+DataTypes:
+  - DocumentTemplate: Document Template that gets transformed to PDF
+  - DocumentPdf: Output PDF of document to sell to customers
+  - OldDocumentDataFormat: The old json scheme of the data format
+  - NewDocumentDataFormat: The new json scheme of the data format
+  - SubstitutionRule: Rules for substitution of specific fields and values provided by the data provider
 
 Setting: We are in the office where the underlying data format provided by Data Provider has changed, thereby changing how the DocumentTemplate needs to define its DocumentData. We want a system that can convert all existing DocumentTemplates' reference of OldDocumentDataFormat the NewDocumentDataFormat that the Data Provider is going to move to and also ensure that the DocumentPdf that get rendered is still correct. 
+
+Scope: Ecosystem
 
 Scenario 1: A successful conversion
 
 ```
+Script Start============================================================
+
 Designer: 
   - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
 Converter: 
@@ -74,11 +78,14 @@ Converter:
   - Designer, convert response is "Success"
 Designer: 
   - (convert response received from Converter)
+
+Script End============================================================
 ```
 
 What's cool about this way of defining the system's workflow and scenarios is that you can create tools that filter based on the perspectives. Say for example, I want to only see the perspective of the Converter, this would be the result:
 
 ```
+Script Start============================================================
 ..
 ..
 Converter: 
@@ -95,6 +102,7 @@ Converter:
   - Designer, convert response is "Success"
 ..
 ..
+Script End============================================================
 ```
 
 The double dots represent that there are other events happening before and after Converter action
@@ -104,18 +112,28 @@ I can do the same for the other systems and define what their roles are meant to
 Based on the full definition above, this is what the event model stage play would look like from the perspective of Designer and Repository, respectively, and together
 
 ```
+Script Start============================================================
+
 Designer: 
   - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
   - (convert response received from Converter)
+
+Script End============================================================
 ```
 
 ```
+Script Start============================================================
+
 Repository: 
   - (store request received from Converter)
   - Converter, store response is "Success"
+
+Script End============================================================
 ```
 
 ```
+Script Start============================================================
+
 Designer: 
   - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
 ..
@@ -127,6 +145,8 @@ Repository:
 ..
 Designer: 
   - (convert response received from Converter)
+
+Script End============================================================
 ```
 
 This is a great way for a designer to see different scopes of how the system interacts

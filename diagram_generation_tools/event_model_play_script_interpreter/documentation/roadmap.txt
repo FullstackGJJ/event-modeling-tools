@@ -1,0 +1,12 @@
+Functional language instructions to engineering team for what designer has in mind from start to finish
+
+text_only_tests = [
+	{
+		"Input": "File /manual_testing/scenario_1/input_file.txt",
+		"Expectation": "Match expectations.txt documented behavior"
+	}
+]
+
+text_only_play_script_interpreter = create_play_script_interpreter text_only_tests
+
+
