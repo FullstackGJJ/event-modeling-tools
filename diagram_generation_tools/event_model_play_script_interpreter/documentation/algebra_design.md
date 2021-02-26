@@ -1,17 +1,41 @@
-data User
+# Interpreter Foundational Design
 
-data Users: [ User ]
+**data** User
 
-data System
+**data** Users: [ User ]
 
-data Systems: [ System ]
+**data** System
 
-data DataType
+**data** Systems: [ System ]
 
-data DataTypes: [ DataType ]
+**data** DataType
 
-data Setting
+**data** DataTypes: [ DataType ]
 
-data Scope
+**data** Setting
 
-data Script
+**data** Scope
+
+**data** Script
+
+# Interpreter Input Parsing Design
+
+**data** InputFile
+
+**data** ValidTextFormat
+
+**data** UsersSection
+
+**data** SystemsSection
+
+**data** DataTypesSection
+
+**data** SettingSection
+
+**data** ScopeSection
+
+**data** ScriptSection
+
+_validateAndRetrieveFileInput :: InputFile -> Option(ValidTextFormat)_
+
+_parseValidTextFormat :: ValidTextFormat -> (UsersSection, SystemsSection, DataTypesSection, SettingSection, ScopeSection, ScriptSection)_
