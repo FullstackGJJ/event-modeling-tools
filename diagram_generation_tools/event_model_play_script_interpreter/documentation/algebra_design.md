@@ -52,4 +52,4 @@ _parseValidEventPlayText :: ValidEventPlayText -> Result(EventPlayScript, PlayPa
 
 _applyFilter :: EventPlayScript -> Filter -> Result(EventPlayScript, FilterError)_
 
-# Interpreter Output Displaying Design
+_getEventPlayScriptText :: EventPlayScript -> ValidEventPlayText_
