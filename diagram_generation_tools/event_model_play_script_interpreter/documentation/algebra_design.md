@@ -18,11 +18,13 @@
 
 **data** Script
 
+**data** EventPlayScript = EventPlayScript Users Systems DataTypes Setting Scope Script
+
 # Interpreter Input Parsing Design
 
 **data** InputFile
 
-**data** ValidTextFormat
+**data** Filter
 
 **data** UsersSection
 
@@ -36,6 +38,18 @@
 
 **data** ScriptSection
 
-_validateAndRetrieveFileInput :: InputFile -> Option(ValidTextFormat)_
+**data** FileParseError
 
-_parseValidTextFormat :: ValidTextFormat -> (UsersSection, SystemsSection, DataTypesSection, SettingSection, ScopeSection, ScriptSection)_
+**data** PlayParseError
+
+**data** FilterError
+
+**data** ValidEventPlayText = ValidEventPlayText UsersSection SystemsSection DataTypesSection SettingSection ScopeSection ScriptSection
+
+_parseInputFile :: InputFile -> Result(ValidEventPlayText, FileParseError)_
+
+_parseValidEventPlayText :: ValidEventPlayText -> Result(EventPlayScript, PlayParseError)_
+
+_applyFilter :: EventPlayScript -> Filter -> Result(EventPlayScript, FilterError)_
+
+# Interpreter Output Displaying Design
