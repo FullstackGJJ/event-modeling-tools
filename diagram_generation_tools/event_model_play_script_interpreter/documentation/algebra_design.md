@@ -16,7 +16,17 @@
 
 **data** Scope
 
-**data** Script
+**data** Actor
+
+**data** Event
+
+**data** Action
+
+**data** ScriptLine = Event | Action
+
+**data** ActorScriptLine = Actor ScriptLine
+
+**data** Script = [ ActorScriptLine ]
 
 **data** EventPlayScript = EventPlayScript Users Systems DataTypes Setting Scope Script
 
