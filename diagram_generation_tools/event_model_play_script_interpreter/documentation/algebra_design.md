@@ -34,6 +34,8 @@
 
 **data** InputFile
 
+**data** InputText
+
 **data** Filter
 
 **data** UsersSection
@@ -48,7 +50,9 @@
 
 **data** ScriptSection
 
-**data** FileParseError
+**data** FileAccessError
+
+**data** TextParsingError
 
 **data** PlayParseError
 
@@ -56,7 +60,9 @@
 
 **data** ValidEventPlayText = ValidEventPlayText UsersSection SystemsSection DataTypesSection SettingSection ScopeSection ScriptSection
 
-_parseInputFile :: InputFile -> Result(ValidEventPlayText, FileParseError)_
+_parseInputFile :: InputFile -> Result(InputText, FileAccessError)_
+
+_parseInputText :: InputText -> Result(ValidEventPlayText, TextParsingError)_
 
 _parseValidEventPlayText :: ValidEventPlayText -> Result(EventPlayScript, PlayParseError)_
 

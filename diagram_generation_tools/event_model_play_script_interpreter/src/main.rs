@@ -1,8 +1,7 @@
 use quicli::prelude::*;
-use std::fs;
 use structopt::StructOpt;
 
-use event_model_play_script_interpreter;
+use event_model_play_script_interpreter::interpreter;
 
 
 /// Load event model play script to generate specified output
@@ -22,6 +21,10 @@ struct Cli {
 
 fn main() -> CliResult {
     let args = Cli::from_args();
-    let lines = fs::read_to_string(&args.file)?;
+    let parse_input_file_result = interpreter::parse_input_file(args.file);
+    match parse_input_file_result {
+        Ok(valid_play_text) => println!("{:?}", valid_play_text),
+        Err(err) => println!("{}", err)
+    };
     Ok(())
 }

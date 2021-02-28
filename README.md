@@ -27,7 +27,7 @@ Systems:
   - Reporting: System that renders DocumentTemplates into DocumentPdfs
   - Converter: System that converts OldDocumentDataFormat reference to NewDocumentDataFormat in DocumentTemplates
   - Repository: System that stores document DocumentTemplates
-  - Data Provider: System that provides data relevant for DocumentTemplates
+  - DataProvider: System that provides data relevant for DocumentTemplates
   - Validator: System that validates if DocumentTemplates produce the the same pdf
 
 DataTypes:
@@ -37,7 +37,7 @@ DataTypes:
   - NewDocumentDataFormat: The new json scheme of the data format
   - SubstitutionRule: Rules for substitution of specific fields and values provided by the data provider
 
-Setting: We are in the office where the underlying data format provided by Data Provider has changed, thereby changing how the DocumentTemplate needs to define its DocumentData. We want a system that can convert all existing DocumentTemplates' reference of OldDocumentDataFormat the NewDocumentDataFormat that the Data Provider is going to move to and also ensure that the DocumentPdf that get rendered is still correct. 
+Setting: We are in the office where the underlying data format provided by DataProvider has changed, thereby changing how the DocumentTemplate needs to define its DocumentData. We want a system that can convert all existing DocumentTemplates' reference of OldDocumentDataFormat the NewDocumentDataFormat that the DataProvider is going to move to and also ensure that the DocumentPdf that get rendered is still correct. 
 
 Scope: Ecosystem
 
@@ -47,37 +47,37 @@ Scenario 1: A successful conversion
 Script Start============================================================
 
 Designer: 
-  - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+  - REQUEST Converter TO convert WITH awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
 Converter: 
-  - (convert request recieved from Designer)
-  - Data Provider, request getSubstitutionRule massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
-Data Provider: 
-  - (getSubstitutionRule request received from Converter)
-  - Converter, getSubstitutionRule response is massEffectRule:SubstitutionRule
+  - (Designer convert request recieved)
+  - REQUEST DataProvider TO getSubstitutionRule WITH massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+DataProvider: 
+  - (Converter getSubstitutionRule request received)
+  - RESPOND TO Converter getSubstitutionRule REQUEST WITH massEffectRule:SubstitutionRule
 Converter: 
-  - (getSubstitutionRule response massEffectRule:SubstitutionRule received from Data Provider)
+  - (DataProvider getSubstitutionRule response massEffectRule:SubstitutionRule received)
   - (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)
-  - Reporting, request render awesomeJson:DocumentTemplate
+  - REQUEST Reporting TO render WITH awesomeJson:DocumentTemplate
 Reporting: 
-  - (render request received from Converter)
-  - Converter, render response is awesomePdf:DocumentPdf
+  - (Converter render request received)
+  - RESPOND TO Converter render REQUEST WITH awesomePdf:DocumentPdf
 Converter: 
-  - (render response awesomePdf:DocumentPdf received from Reporting)
-  - Validator, request compare awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf
+  - (Reporting render response awesomePdf:DocumentPdf received)
+  - REQUEST Validator TO compare WITH awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf
 Validator: 
-  - (compare request received from Converter)
-  - Converter, compare response is "Success"
+  - (Converter compare request received)
+  - RESPOND TO Converter compare REQUEST WITH "Success"
 Converter: 
-  - (compare response "Success" received from Validator)
-  - Repository, request store awesomeJson:DocumentTemplate
+  - (Validator compare response "Success" received)
+  - REQUEST Repository TO store WITH awesomeJson:DocumentTemplate
 Repository: 
-  - (store request received from Converter)
-  - Converter, store response is "Success"
+  - (Converter store request received)
+  - RESPOND TO Converter store REQUEST WITH "Success"
 Converter: 
-  - (store response "Success" received from Repository)
-  - Designer, convert response is "Success"
+  - (Repository store response "Success" received)
+  - RESPOND TO Designer convert REQUEST WITH "Success"
 Designer: 
-  - (convert response received from Converter)
+  - (Converter convert response received)
 
 Script End============================================================
 ```
@@ -89,17 +89,17 @@ Script Start============================================================
 ..
 ..
 Converter: 
-  - (convert request recieved from Designer)
-  - Data Provider, request getSubstitutionRule massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
-  - (getSubstitutionRule response massEffectRule:SubstitutionRule received from Data Provider)
+  - (Designer convert request recieved)
+  - REQUEST DataProvider TO getSubstitutionRule WITH massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+  - (DataProvider getSubstitutionRule response massEffectRule:SubstitutionRule received)
   - (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)
-  - Reporting, request render awesomeJson:DocumentTemplate
-  - (render response awesomePdf:DocumentPdf received from Reporting)
-  - Validator, request compare awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf
-  - (compare response "Success" received from Validator)
-  - Repository, request store awesomeJson:DocumentTemplate
-  - (store response "Success" received from Repository)
-  - Designer, convert response is "Success"
+  - REQUEST Reporting TO render WITH awesomeJson:DocumentTemplate
+  - (Reporting render response awesomePdf:DocumentPdf received)
+  - REQUEST Validator TO compare WITH awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf
+  - (Validator compare response "Success" received)
+  - REQUEST Repository TO store WITH awesomeJson:DocumentTemplate
+  - (Repository store response "Success" received)
+  - RESPOND TO Designer convert REQUEST WITH "Success"
 ..
 ..
 Script End============================================================
@@ -115,8 +115,8 @@ Based on the full definition above, this is what the event model stage play woul
 Script Start============================================================
 
 Designer: 
-  - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
-  - (convert response received from Converter)
+  - REQUEST Converter TO convert WITH awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+  - (Converter convert response received)
 
 Script End============================================================
 ```
@@ -125,8 +125,8 @@ Script End============================================================
 Script Start============================================================
 
 Repository: 
-  - (store request received from Converter)
-  - Converter, store response is "Success"
+  - (Converter store request received)
+  - RESPOND TO Converter store REQUEST WITH "Success"
 
 Script End============================================================
 ```
@@ -135,16 +135,16 @@ Script End============================================================
 Script Start============================================================
 
 Designer: 
-  - Converter, request convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
+  - REQUEST Converter TO convert WITH awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
 ..
 ..
 Repository: 
-  - (store request received from Converter)
-  - Converter, store response is "Success"
+  - (Converter store request received)
+  - RESPOND TO Converter store REQUEST WITH "Success"
 ..
 ..
 Designer: 
-  - (convert response received from Converter)
+  - (Converter convert response received)
 
 Script End============================================================
 ```
