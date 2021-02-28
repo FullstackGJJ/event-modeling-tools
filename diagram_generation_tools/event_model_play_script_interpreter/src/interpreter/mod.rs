@@ -75,10 +75,13 @@ pub struct ValidEventPlayText {
 }
 
 pub fn parse_input_file(input_file: InputFile) -> Result<InputText, FileParseError> {
-    fs::read_to_string(input_file).expect("File parsing error")
+    match fs::read_to_string(input_file) {
+        Ok(file_text) => Ok(file_text),
+        Err(error) => Err("File parsing error".to_string())
+    }
 }
 
-pub fn parse_input_text(input_text: InputText) -> Result<ValidEventPlayText, TextParsingError> {
+pub fn parse_input_text(input_text: InputText) -> Result<ValidEventPlayText, TextParseError> {
     Ok(ValidEventPlayText {
         users_section: vec!["".to_string()],
         systems_section: vec!["".to_string()],
