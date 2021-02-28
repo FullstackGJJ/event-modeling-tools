@@ -36,6 +36,8 @@
 
 **data** InputText
 
+**data** OutputText
+
 **data** Filter
 
 **data** UsersSection
@@ -69,3 +71,5 @@ _parseValidEventPlayText :: ValidEventPlayText -> Result(EventPlayScript, PlayPa
 _applyFilter :: EventPlayScript -> Filter -> Result(EventPlayScript, FilterError)_
 
 _getEventPlayScriptText :: EventPlayScript -> ValidEventPlayText_
+
+_getEventPlayOutputText :: ValidEventPlayText -> OutputText_
