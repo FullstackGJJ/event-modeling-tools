@@ -13,6 +13,8 @@ pub type Setting = String;
 
 pub type Scope = String;
 
+pub type Scenario = String;
+
 pub type Actor = String;
 
 pub enum ScriptLine {
@@ -33,6 +35,7 @@ pub struct EventPlayScript {
     pub data_types: Vec<DataType>,
     pub setting: Setting,
     pub scope: Scope,
+    pub scenario: Scenario,
     pub script: Script
 }
 
@@ -50,9 +53,11 @@ pub type SystemsSection = Vec<String>;
 
 pub type DataTypesSection = Vec<String>;
 
-pub type SettingSection = Vec<String>;
+pub type SettingSection = String;
 
-pub type ScopeSection = Vec<String>;
+pub type ScopeSection = String;
+
+pub type ScenarioSection = String;
 
 pub type ScriptSection = Vec<String>;
 
@@ -64,13 +69,14 @@ pub type PlayParseError = String;
 
 pub type FilterError = String;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct ValidEventPlayText {
     pub users_section: UsersSection,
     pub systems_section: SystemsSection,
     pub data_types_section: DataTypesSection,
     pub setting_section: SettingSection,
     pub scope_section: ScopeSection,
+    pub scenario_section: ScenarioSection,
     pub script_section: ScriptSection
 }
 

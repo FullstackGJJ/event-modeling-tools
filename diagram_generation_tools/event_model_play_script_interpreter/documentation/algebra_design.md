@@ -16,6 +16,8 @@
 
 **data** Scope
 
+**data** Scenario
+
 **data** Actor
 
 **data** Event
@@ -49,6 +51,8 @@
 **data** SettingSection
 
 **data** ScopeSection
+
+**data** ScenarioSection
 
 **data** ScriptSection
 

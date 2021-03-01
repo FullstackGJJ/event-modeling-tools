@@ -13,10 +13,7 @@ pub use super::types::{
 };
 
 pub fn parse_input_file(input_file: InputFile) -> Result<InputText, FileParseError> {
-    match fs::read_to_string(input_file) {
-        Ok(file_text) => Ok(file_text),
-        Err(error) => Err("File parsing error".to_string())
-    }
+    composed_parse_input_file_fn(fs::read_to_string, input_file)
 }
 
 pub fn parse_input_text(input_text: InputText) -> Result<ValidEventPlayText, TextParseError> {
@@ -33,12 +30,13 @@ pub fn apply_filter(event_play_script: EventPlayScript, filter: Filter) -> Resul
 
 pub fn get_event_play_script_text(event_play_pcript: EventPlayScript) -> ValidEventPlayText {
     ValidEventPlayText {
-        users_section: vec!["".to_string()],
-        systems_section: vec!["".to_string()],
-        data_types_section: vec!["".to_string()],
-        setting_section: vec!["".to_string()],
-        scope_section: vec!["".to_string()],
-        script_section: vec!["".to_string()]
+        users_section: vec![ String::from("") ],
+        systems_section: vec![ String::from("") ],
+        data_types_section: vec![ String::from("") ],
+        setting_section: String::from(""),
+        scope_section: String::from(""),
+        scenario_section: String::from(""),
+        script_section: vec![ String::from("") ]
     }
 }
 
@@ -46,64 +44,134 @@ pub fn get_event_play_output_text(valid_event_play_text: ValidEventPlayText) -> 
     "get_event_play_output_text does not do anything".to_string()
 }
 
+fn composed_parse_input_file_fn(file_reading_fn: fn(String) -> Result<String, std::io::Error>, input_file: InputFile) -> Result<InputText, FileParseError> {
+    match file_reading_fn(input_file) {
+        Ok(file_text) => Ok(file_text),
+        Err(error) => Err(format!("File parsing error: {:?}", error))
+    }
+}
+
+/*==============================Unit Tests==============================*/
+
+#[cfg(test)]
+mod composed_parse_input_file_fn {
+    use super::*;
+}
+
 #[cfg(test)]
 mod parse_input_text {
+    extern crate pretty_assertions;
+
+    use super::*;
+    use pretty_assertions::{assert_eq, assert_ne};
+
     #[test]
     fn should_parse_when_given_normal_text() {
         let input_text = vec![
-            String::new("Users:"),
-            String::new("  - Designers: People who design document templates"),
-            String::new("Systems:"),
-            String::new("  - Reporting: System that renders DocumentTemplates into DocumentPdfs"),
-            String::new("  - Converter: System that converts OldDocumentDataFormat reference to NewDocumentDataFormat in DocumentTemplates"),
-            String::new("  - Repository: System that stores document DocumentTemplates"),
-            String::new("  - DataProvider: System that provides data relevant for DocumentTemplates"),
-            String::new("  - Validator: System that validates if DocumentTemplates produce the the same pdf"),
-            String::new("DataTypes:"),
-            String::new("  - DocumentTemplate: Document Template that gets transformed to PDF"),
-            String::new("  - DocumentPdf: Output PDF of document to sell to customers"),
-            String::new("  - OldDocumentDataFormat: The old json scheme of the data format"),
-            String::new("  - NewDocumentDataFormat: The new json scheme of the data format"),
-            String::new("  - SubstitutionRule: Rules for substitution of specific fields and values provided by the data provider"),
-            String::new("Setting: We are in the office where the underlying data format provided by Data Provider has changed, thereby changing how the DocumentTemplate needs to define its DocumentData. We want a system that can convert all existing DocumentTemplates' reference of OldDocumentDataFormat the NewDocumentDataFormat that the Data Provider is going to move to and also ensure that the DocumentPdf that get rendered is still correct."),
-            String::new("Scope: Ecosystem"),
-            String::new("Scenario 1: A successful conversion"),
-            String::new("Script Start============================================================"),
-            String::new("Designer: "),
-            String::new("  - REQUEST Converter TO convert WITH awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"),
-            String::new("Converter: "),
-            String::new("  - (Designer convert request recieved)"),
-            String::new("  - REQUEST DataProvider TO getSubstitutionRule WITH massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"),
-            String::new("DataProvider: "),
-            String::new("  - (Converter getSubstitutionRule request received)"),
-            String::new("  - RESPOND TO Converter getSubstitutionRule REQUEST WITH massEffectRule:SubstitutionRule"),
-            String::new("Converter: "),
-            String::new("  - (DataProvider getSubstitutionRule response massEffectRule:SubstitutionRule received)"),
-            String::new("  - (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)"),
-            String::new("  - REQUEST Reporting TO render WITH awesomeJson:DocumentTemplate"),
-            String::new("Reporting: "),
-            String::new("  - (Converter render request received)"),
-            String::new("  - RESPOND TO Converter render REQUEST WITH awesomePdf:DocumentPdf"),
-            String::new("Converter: "),
-            String::new("  - (Reporting render response awesomePdf:DocumentPdf received)"),
-            String::new("  - REQUEST Validator TO compare WITH awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf"),
-            String::new("Validator: "),
-            String::new("  - (Converter compare request received)"),
-            String::new("  - RESPOND TO Converter compare REQUEST WITH "Success""),
-            String::new("Converter: "),
-            String::new("  - (Validator compare response "Success" received)"),
-            String::new("  - REQUEST Repository TO store WITH awesomeJson:DocumentTemplate"),
-            String::new("Repository: "),
-            String::new("  - (Converter store request received)"),
-            String::new("  - RESPOND TO Converter store REQUEST WITH "Success""),
-            String::new("Converter: "),
-            String::new("  - (Repository store response "Success" received)"),
-            String::new("  - RESPOND TO Designer convert REQUEST WITH "Success""),
-            String::new("Designer: "),
-            String::new("  - (Converter convert response received)"),
-            String::new("Script End============================================================"),
+            String::from("Users:"),
+            String::from("  - Designers: People who design document templates"),
+            String::from("Systems:"),
+            String::from("  - Reporting: System that renders DocumentTemplates into DocumentPdfs"),
+            String::from("  - Converter: System that converts OldDocumentDataFormat reference to NewDocumentDataFormat in DocumentTemplates"),
+            String::from("  - Repository: System that stores document DocumentTemplates"),
+            String::from("  - DataProvider: System that provides data relevant for DocumentTemplates"),
+            String::from("  - Validator: System that validates if DocumentTemplates produce the the same pdf"),
+            String::from("DataTypes:"),
+            String::from("  - DocumentTemplate: Document Template that gets transformed to PDF"),
+            String::from("  - DocumentPdf: Output PDF of document to sell to customers"),
+            String::from("  - OldDocumentDataFormat: The old json scheme of the data format"),
+            String::from("  - NewDocumentDataFormat: The new json scheme of the data format"),
+            String::from("  - SubstitutionRule: Rules for substitution of specific fields and values provided by the data provider"),
+            String::from("Setting: We are in the office where the underlying data format provided by Data Provider has changed, thereby changing how the DocumentTemplate needs to define its DocumentData. We want a system that can convert all existing DocumentTemplates' reference of OldDocumentDataFormat the NewDocumentDataFormat that the Data Provider is going to move to and also ensure that the DocumentPdf that get rendered is still correct."),
+            String::from("Scope: Ecosystem"),
+            String::from("Scenario: A successful conversion"),
+            String::from("Script Start============================================================"),
+            String::from("Designer: "),
+            String::from("  - REQUEST Converter TO convert WITH awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"),
+            String::from("Converter: "),
+            String::from("  - (Designer convert request recieved)"),
+            String::from("  - REQUEST DataProvider TO getSubstitutionRule WITH massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"),
+            String::from("DataProvider: "),
+            String::from("  - (Converter getSubstitutionRule request received)"),
+            String::from("  - RESPOND TO Converter getSubstitutionRule REQUEST WITH massEffectRule:SubstitutionRule"),
+            String::from("Converter: "),
+            String::from("  - (DataProvider getSubstitutionRule response massEffectRule:SubstitutionRule received)"),
+            String::from("  - (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)"),
+            String::from("  - REQUEST Reporting TO render WITH awesomeJson:DocumentTemplate"),
+            String::from("Reporting: "),
+            String::from("  - (Converter render request received)"),
+            String::from("  - RESPOND TO Converter render REQUEST WITH awesomePdf:DocumentPdf"),
+            String::from("Converter: "),
+            String::from("  - (Reporting render response awesomePdf:DocumentPdf received)"),
+            String::from("  - REQUEST Validator TO compare WITH awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf"),
+            String::from("Validator: "),
+            String::from("  - (Converter compare request received)"),
+            String::from("  - RESPOND TO Converter compare REQUEST WITH 'Success'"),
+            String::from("Converter: "),
+            String::from("  - (Validator compare response 'Success' received)"),
+            String::from("  - REQUEST Repository TO store WITH awesomeJson:DocumentTemplate"),
+            String::from("Repository: "),
+            String::from("  - (Converter store request received)"),
+            String::from("  - RESPOND TO Converter store REQUEST WITH 'Success'"),
+            String::from("Converter: "),
+            String::from("  - (Repository store response 'Success' received)"),
+            String::from("  - RESPOND TO Designer convert REQUEST WITH 'Success'"),
+            String::from("Designer: "),
+            String::from("  - (Converter convert response received)"),
+            String::from("Script End============================================================"),
         ].join("\n");
-        assert_eq!(1 + 1, 2);
+
+        let expected_result = ValidEventPlayText {
+            users_section: vec![
+                String::from("Designers: People who design document templates"),
+            ],
+            systems_section: vec![
+                String::from("Reporting: System that renders DocumentTemplates into DocumentPdfs"),
+                String::from("Converter: System that converts OldDocumentDataFormat reference to NewDocumentDataFormat in DocumentTemplates"),
+                String::from("Repository: System that stores document DocumentTemplates"),
+                String::from("DataProvider: System that provides data relevant for DocumentTemplates"),
+                String::from("Validator: System that validates if DocumentTemplates produce the the same pdf"),
+            ],
+            data_types_section: vec![
+                String::from("DocumentTemplate: Document Template that gets transformed to PDF"),
+                String::from("DocumentPdf: Output PDF of document to sell to customers"),
+                String::from("OldDocumentDataFormat: The old json scheme of the data format"),
+                String::from("NewDocumentDataFormat: The new json scheme of the data format"),
+                String::from("SubstitutionRule: Rules for substitution of specific fields and values provided by the data provider"),
+            ],
+            setting_section: String::from("We are in the office where the underlying data format provided by Data Provider has changed, thereby changing how the DocumentTemplate needs to define its DocumentData. We want a system that can convert all existing DocumentTemplates' reference of OldDocumentDataFormat the NewDocumentDataFormat that the Data Provider is going to move to and also ensure that the DocumentPdf that get rendered is still correct."),
+            scope_section: String::from("Ecosystem"),
+            scenario_section: String::from("A successful conversion"),
+            script_section: vec![
+                String::from("Designer REQUEST Converter TO convert WITH awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"),
+                String::from("Converter (Designer convert request recieved)"),
+                String::from("Converter REQUEST DataProvider TO getSubstitutionRule WITH massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"),
+                String::from("DataProvider (Converter getSubstitutionRule request received)"),
+                String::from("DataProvider RESPOND TO Converter getSubstitutionRule REQUEST WITH massEffectRule:SubstitutionRule"),
+                String::from("Converter (DataProvider getSubstitutionRule response massEffectRule:SubstitutionRule received)"),
+                String::from("Converter (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)"),
+                String::from("Converter REQUEST Reporting TO render WITH awesomeJson:DocumentTemplate"),
+                String::from("Reporting (Converter render request received)"),
+                String::from("Reporting RESPOND TO Converter render REQUEST WITH awesomePdf:DocumentPdf"),
+                String::from("Converter (Reporting render response awesomePdf:DocumentPdf received)"),
+                String::from("Converter REQUEST Validator TO compare WITH awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf"),
+                String::from("Validator (Converter compare request received)"),
+                String::from("Validator RESPOND TO Converter compare REQUEST WITH 'Success'"),
+                String::from("Converter (Validator compare response 'Success' received)"),
+                String::from("Converter REQUEST Repository TO store WITH awesomeJson:DocumentTemplate"),
+                String::from("Repository (Converter store request received)"),
+                String::from("Repository RESPOND TO Converter store REQUEST WITH 'Success'"),
+                String::from("Converter (Repository store response 'Success' received)"),
+                String::from("Converter RESPOND TO Designer convert REQUEST WITH 'Success'"),
+                String::from("Designer (Converter convert response received)"),
+            ]
+        };
+
+        let test_result = parse_input_text(input_text);
+        match test_result {
+            Ok(valid_event_play_text) => assert_eq!(valid_event_play_text, expected_result),
+            Err(error) => panic!("parse_input_text did not succeed in parsing")
+        }
     }
 }
 

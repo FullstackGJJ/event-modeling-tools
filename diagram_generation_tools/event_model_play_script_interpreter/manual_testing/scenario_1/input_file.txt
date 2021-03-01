@@ -19,7 +19,7 @@ Setting: We are in the office where the underlying data format provided by Data 
 
 Scope: Ecosystem
 
-Scenario 1: A successful conversion
+Scenario: A successful conversion
 
 Script Start============================================================
 

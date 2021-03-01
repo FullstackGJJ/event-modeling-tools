@@ -41,7 +41,7 @@ Setting: We are in the office where the underlying data format provided by DataP
 
 Scope: Ecosystem
 
-Scenario 1: A successful conversion
+Scenario: A successful conversion
 
 ```
 Script Start============================================================
@@ -107,7 +107,7 @@ Script End============================================================
 
 The double dots represent that there are other events happening before and after Converter action
 
-I can do the same for the other systems and define what their roles are meant to be, make them pass simulated or real Scenario 1 workflows and have good specifications for independent teams to work on (the huge attraction of event modeling). 
+I can do the same for the other systems and define what their roles are meant to be, make them pass simulated or real Scenario: A successful conversion workflows and have good specifications for independent teams to work on (the huge attraction of event modeling). 
 
 Based on the full definition above, this is what the event model stage play would look like from the perspective of Designer and Repository, respectively, and together
 
