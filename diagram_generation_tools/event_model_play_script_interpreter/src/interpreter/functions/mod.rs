@@ -17,7 +17,27 @@ pub fn parse_input_file(input_file: InputFile) -> Result<InputText, FileParseErr
 }
 
 pub fn parse_input_text(input_text: InputText) -> Result<ValidEventPlayText, TextParseError> {
-    Err("parse_input_text unimplemented".to_string())
+    let input_text = input_text
+        .lines()
+        .map(|x| x.trim().to_string())
+        .collect::<Vec<String>>(); 
+
+    let users_section = parse_declaration_section(&input_text, "Users:");
+    let systems_section = parse_declaration_section(&input_text, "Systems:");
+    let data_types_section = parse_declaration_section(&input_text, "DataTypes:");
+    let setting_section = parse_description_section(&input_text, "Setting:");
+    let scope_section = parse_description_section(&input_text, "Scope:");
+    let scenario_section = parse_description_section(&input_text, "Scenario:");
+
+    Ok(ValidEventPlayText {
+        users_section,
+        systems_section,
+        data_types_section,
+        setting_section,
+        scope_section,
+        scenario_section,
+        script_section: vec![]
+    })
 }
 
 pub fn parse_valid_event_play_text(valid_event_play_text: ValidEventPlayText) -> Result<EventPlayScript, PlayParseError> {
@@ -38,6 +58,38 @@ pub fn get_event_play_script_text(event_play_pcript: EventPlayScript) -> ValidEv
         scenario_section: String::from(""),
         script_section: vec![ String::from("") ]
     }
+}
+
+fn parse_declaration_section(input_text: &Vec<String>, section_filter: &str) -> Vec<String> {
+    let (return_vec, _) = input_text
+        .iter()
+        .fold((Vec::<String>::new(), false), |acc, line| {
+            let (vec, in_user_section_block) = acc;
+            match (line.as_str(), in_user_section_block) {
+                (possible_section, false) if section_filter == possible_section => (vec, true),
+                (_, true) => {
+                    match line.chars().next() {
+                        Some('-') => {
+                            let mut vec: Vec<String> = vec;
+                            vec.push(line.replace("-", "").trim().to_string());
+                            (vec, true)
+                        },
+                        _ => (vec, false)
+                    }
+                },
+                (_, false) => (vec, false)
+            }
+        });
+    return_vec
+}
+
+fn parse_description_section(input_text: &Vec<String>, description: &str) -> String {
+    input_text.iter().filter(|line| line.starts_with(description))
+        .fold(String::new(), |acc, line| {
+            let mut acc = acc;
+            acc.push_str(line.replace(description, "").trim());
+            acc
+        })
 }
 
 pub fn get_event_play_output_text(valid_event_play_text: ValidEventPlayText) -> OutputText {
