@@ -60,15 +60,21 @@
 
 **data** TextParsingError
 
+**data** EventPlayValidationError
+
 **data** PlayParseError
 
 **data** FilterError
+
+**data** RawEventPlayText = ValidEventPlayText UsersSection SystemsSection DataTypesSection SettingSection ScopeSection ScriptSection
 
 **data** ValidEventPlayText = ValidEventPlayText UsersSection SystemsSection DataTypesSection SettingSection ScopeSection ScriptSection
 
 _parseInputFile :: InputFile -> Result(InputText, FileAccessError)_
 
-_parseInputText :: InputText -> Result(ValidEventPlayText, TextParsingError)_
+_parseInputText :: InputText -> Result(RawEventPlayText, TextParsingError)_
+
+_validateRawEventPlayText :: RawEventPlayText -> Result(ValidEventPlayText, EventPlayValidationError)_
 
 _parseValidEventPlayText :: ValidEventPlayText -> Result(EventPlayScript, PlayParseError)_
 
