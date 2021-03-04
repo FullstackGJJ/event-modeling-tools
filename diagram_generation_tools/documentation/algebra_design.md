@@ -66,7 +66,7 @@
 
 **data** FilterError
 
-**data** RawEventPlayText = ValidEventPlayText UsersSection SystemsSection DataTypesSection SettingSection ScopeSection ScriptSection
+**data** RawEventPlayText = RawEventPlayText UsersSection SystemsSection DataTypesSection SettingSection ScopeSection ScriptSection
 
 **data** ValidEventPlayText = ValidEventPlayText UsersSection SystemsSection DataTypesSection SettingSection ScopeSection ScriptSection
 
