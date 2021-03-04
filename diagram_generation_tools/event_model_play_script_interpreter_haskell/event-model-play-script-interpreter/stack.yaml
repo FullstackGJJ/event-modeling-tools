@@ -45,6 +45,8 @@ extra-deps:
 - HUnit-1.6.2.0
 - call-stack-0.3.0
 - hspec-2.7.8
+- argparser-0.3.4
+# - docopt-0.7.0.5
 #
 # extra-deps: []
 

@@ -35,6 +35,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - event-model-play-script-interpreter
+    - argparser
 
 tests:
   event-model-play-script-interpreter-test:
