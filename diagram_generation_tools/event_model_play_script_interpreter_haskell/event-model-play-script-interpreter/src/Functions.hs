@@ -6,7 +6,6 @@ module Functions ( parseInputFile
                  , getEventPlayScriptText ) where
 
 import Data
-import Types
 
 parseInputFile :: InputFile -> Either FileAccessError InputText
 

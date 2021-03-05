@@ -6,9 +6,9 @@ module Lib ( interpretAndFilterEventPlayScript
 import Data ( InputFile
             , Filter
             , OutputText )
-import Functions ( 
+import Functions
 
 interpretAndFilterEventPlayScript :: InputFile -> Filter -> OutputText
 
-interpretAndFilterEventPlayScript inputFile filter = do
+interpretAndFilterEventPlayScript inputFile filter = "interpretAndFilterEventPlayScript is unimplemented"
     

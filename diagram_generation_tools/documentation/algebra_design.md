@@ -1,14 +1,20 @@
-# Interpreter Foundational Design
+# Event Model Play Script Foundational Domain Design
 
-**data** User
+**data** Name
+
+**data** Description
+
+**data** Definition = Definition Name Description
+
+**data** User: Definition
 
 **data** Users: [ User ]
 
-**data** System
+**data** System: Definition
 
 **data** Systems: [ System ]
 
-**data** DataType
+**data** DataType: Definition
 
 **data** DataTypes: [ DataType ]
 
@@ -20,17 +26,26 @@
 
 **data** Actor
 
-**data** Event
+**data** LineContent
 
-**data** Action
+**data** ActionContent
 
-**data** ScriptLine = Event | Action
+**data** Broadcast = REQUEST Actor Method Parameters
+                   | RESPOND Actor Method Response
+
+**data** Event = ReceivedBroadcast Broadcast | Action ActionContent
+
+**data** ScriptLine = Event | Broadcast
 
 **data** ActorScriptLine = Actor ScriptLine
 
 **data** Script = [ ActorScriptLine ]
 
 **data** EventPlayScript = EventPlayScript Users Systems DataTypes Setting Scope Script
+
+**data** Filter
+
+_filter :: EventPlayScript -> Filter -> EventPlayScript _
 
 # Interpreter Input Parsing Design
 
@@ -39,8 +54,6 @@
 **data** InputText
 
 **data** OutputText
-
-**data** Filter
 
 **data** UsersSection
 
