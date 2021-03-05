@@ -12,10 +12,10 @@ import System.IO
 
 import System.Console.ArgParser 
 
-import Lib ( interpretAndFilterEventPlayScript
-           , InputFile
-           , Filter
-           , OutputText )
+-- import Lib ( interpretAndFilterEventPlayScript
+--            , InputFile
+--            , Filter
+--            , OutputText )
 
 data Arguments = Arguments String String deriving (Show)
 
@@ -30,4 +30,7 @@ applyArgsToInterpreter :: (InputFile -> Filter -> OutputText) -> Arguments -> IO
 applyArgsToInterpreter interpretAndFilterEventPlayScript arguments = putStrLn "hello from applyArgsToInterpreter"
 
 main :: IO ()
-main = withParseResult argumentParser (applyArgsToInterpreter interpretAndFilterEventPlayScript)
+-- main = withParseResult argumentParser (applyArgsToInterpreter interpretAndFilterEventPlayScript)
+
+main = 
+

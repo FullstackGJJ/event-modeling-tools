@@ -11,4 +11,3 @@ import Functions
 interpretAndFilterEventPlayScript :: InputFile -> Filter -> OutputText
 
 interpretAndFilterEventPlayScript inputFile filter = "interpretAndFilterEventPlayScript is unimplemented"
-    

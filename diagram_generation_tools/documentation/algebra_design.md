@@ -26,8 +26,6 @@
 
 **data** Actor
 
-**data** LineContent
-
 **data** ActionContent
 
 **data** Broadcast = REQUEST Actor Method Parameters
