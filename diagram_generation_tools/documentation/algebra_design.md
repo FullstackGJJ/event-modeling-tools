@@ -28,8 +28,13 @@
 
 **data** ActionContent
 
-**data** Broadcast = REQUEST Actor Method Parameters
-                   | RESPOND Actor Method Response
+**data** Method
+
+**data** Parameters
+
+**data** Response
+
+**data** Broadcast = REQUEST Actor Method Parameters | RESPONSE Actor Method Response
 
 **data** Event = ReceivedBroadcast Broadcast | Action ActionContent
 
@@ -43,7 +48,7 @@
 
 **data** Filter
 
-_filter :: EventPlayScript -> Filter -> EventPlayScript _
+_filter :: EventPlayScript -> Filter -> EventPlayScript_
 
 # Interpreter Input Parsing Design
 

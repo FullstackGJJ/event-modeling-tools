@@ -32,5 +32,3 @@ applyArgsToInterpreter interpretAndFilterEventPlayScript arguments = putStrLn "h
 main :: IO ()
 -- main = withParseResult argumentParser (applyArgsToInterpreter interpretAndFilterEventPlayScript)
 
-main = 
-
