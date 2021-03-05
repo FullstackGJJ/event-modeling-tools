@@ -49,35 +49,35 @@ Script Start============================================================
 Designer: 
   - REQUEST Converter TO convert WITH awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
 Converter: 
-  - (Designer convert request recieved)
+  - (Designer convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat request recieved)
   - REQUEST DataProvider TO getSubstitutionRule WITH massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
 DataProvider: 
-  - (Converter getSubstitutionRule request received)
+  - (Converter getSubstitutionRule massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat request received)
   - RESPOND TO Converter getSubstitutionRule REQUEST WITH massEffectRule:SubstitutionRule
 Converter: 
   - (DataProvider getSubstitutionRule response massEffectRule:SubstitutionRule received)
   - (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)
   - REQUEST Reporting TO render WITH awesomeJson:DocumentTemplate
 Reporting: 
-  - (Converter render request received)
+  - (Converter render awesomeJson:DocumentTemplate request received)
   - RESPOND TO Converter render REQUEST WITH awesomePdf:DocumentPdf
 Converter: 
   - (Reporting render response awesomePdf:DocumentPdf received)
   - REQUEST Validator TO compare WITH awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf
 Validator: 
-  - (Converter compare request received)
+  - (Converter compare awesomePdf:DocumentPdf awesomePdfReference:DocumentPdf request received)
   - RESPOND TO Converter compare REQUEST WITH "Success"
 Converter: 
   - (Validator compare response "Success" received)
   - REQUEST Repository TO store WITH awesomeJson:DocumentTemplate
 Repository: 
-  - (Converter store request received)
+  - (Converter store awesomeJson:DocumentTemplate request received)
   - RESPOND TO Converter store REQUEST WITH "Success"
 Converter: 
   - (Repository store response "Success" received)
   - RESPOND TO Designer convert REQUEST WITH "Success"
 Designer: 
-  - (Converter convert response received)
+  - (Converter convert response "Success" received)
 
 Script End============================================================
 ```
@@ -89,7 +89,7 @@ Script Start============================================================
 ..
 ..
 Converter: 
-  - (Designer convert request recieved)
+  - (Designer convert awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat request recieved)
   - REQUEST DataProvider TO getSubstitutionRule WITH massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
   - (DataProvider getSubstitutionRule response massEffectRule:SubstitutionRule received)
   - (apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate)
@@ -116,7 +116,7 @@ Script Start============================================================
 
 Designer: 
   - REQUEST Converter TO convert WITH awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat
-  - (Converter convert response received)
+  - (Converter convert response "Success" received)
 
 Script End============================================================
 ```
@@ -125,7 +125,7 @@ Script End============================================================
 Script Start============================================================
 
 Repository: 
-  - (Converter store request received)
+  - (Converter store awesomeJson:DocumentTemplate request received)
   - RESPOND TO Converter store REQUEST WITH "Success"
 
 Script End============================================================
@@ -139,12 +139,12 @@ Designer:
 ..
 ..
 Repository: 
-  - (Converter store request received)
+  - (Converter store awesomeJson:DocumentTemplate request received)
   - RESPOND TO Converter store REQUEST WITH "Success"
 ..
 ..
 Designer: 
-  - (Converter convert response received)
+  - (Converter convert response "Success" received)
 
 Script End============================================================
 ```
