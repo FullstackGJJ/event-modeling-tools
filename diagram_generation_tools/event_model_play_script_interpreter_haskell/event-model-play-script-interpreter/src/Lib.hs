@@ -1,4 +1,14 @@
-module Lib () where
+module Lib ( interpretAndFilterEventPlayScript
+           , InputFile
+           , Filter
+           , OutputText ) where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+import Data ( InputFile
+            , Filter
+            , OutputText )
+import Functions ( 
+
+interpretAndFilterEventPlayScript :: InputFile -> Filter -> OutputText
+
+interpretAndFilterEventPlayScript inputFile filter = do
+    
