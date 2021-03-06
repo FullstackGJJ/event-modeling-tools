@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0c21b6190a955d78abee7a25256e73bcc061d996ce0beb93c11bed55e90c13e4
+-- hash: 08a6a7f421b835ffa9d3062413f59e0d29669b9b03229a3725108a08b170781e
 
 name:           event-model-play-script-interpreter
 version:        0.1.0.0
@@ -29,13 +29,15 @@ library
   exposed-modules:
       Data
       Functions
-      Lib
+      Internal.Script
   other-modules:
       Paths_event_model_play_script_interpreter
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
+    , text
+    , text-conversions
   default-language: Haskell2010
 
 executable event-model-play-script-interpreter-exe
@@ -49,13 +51,14 @@ executable event-model-play-script-interpreter-exe
       argparser
     , base >=4.7 && <5
     , event-model-play-script-interpreter
+    , pretty-simple
   default-language: Haskell2010
 
 test-suite event-model-play-script-interpreter-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      FunctionsSpec
+      Internal.ScriptSpec
       Paths_event_model_play_script_interpreter
   hs-source-dirs:
       test

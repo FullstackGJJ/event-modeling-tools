@@ -24,6 +24,9 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+  - text
+  - text-conversions
 
 executables:
   event-model-play-script-interpreter-exe:
@@ -36,6 +39,7 @@ executables:
     dependencies:
     - event-model-play-script-interpreter
     - argparser
+    - pretty-simple
 
 tests:
   event-model-play-script-interpreter-test:

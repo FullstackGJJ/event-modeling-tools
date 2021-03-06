@@ -40,15 +40,17 @@
 
 **data** ScriptLine = Event | Broadcast
 
-**data** ActorScriptLine = Actor ScriptLine
+**data** HiddenSymbol
+
+**data** ActorScriptLine = Line Actor ScriptLine | HiddenLine HiddenSymbol
 
 **data** Script = [ ActorScriptLine ]
 
-**data** EventPlayScript = EventPlayScript Users Systems DataTypes Setting Scope Script
+**data** EventPlayScript = EventPlayScript Users Systems DataTypes Setting Scope Scenario Script
 
-**data** Filter
+**data** FilterParameter
 
-_filter :: EventPlayScript -> Filter -> EventPlayScript_
+_filter :: EventPlayScript -> FilterParameter -> EventPlayScript_
 
 # Interpreter Input Parsing Design
 

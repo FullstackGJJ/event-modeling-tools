@@ -31,8 +31,8 @@ Reporting:
   - RESPOND TO Converter render REQUEST WITH awesomePdf:DocumentPdf
 Converter: 
   - (Reporting render response awesomePdf:DocumentPdf received)
-  - RESPOND TO Designer convert REQUEST WITH "Success"
+  - RESPOND TO Designers convert REQUEST WITH "Success"
 Designer: 
-  - (Converter convert response received)
+  - (Converter convert response "Success" received)
 
 Script End============================================================

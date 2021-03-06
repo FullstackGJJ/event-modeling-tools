@@ -11,24 +11,20 @@ import System.Exit
 import System.IO
 
 import System.Console.ArgParser 
+import Text.Pretty.Simple (pPrint)
 
--- import Lib ( interpretAndFilterEventPlayScript
---            , InputFile
---            , Filter
---            , OutputText )
+import Functions ( filter )
+import Data 
 
 data Arguments = Arguments String String deriving (Show)
 
 argumentParser :: ParserSpec Arguments
-
 argumentParser = Arguments
     `parsedBy` reqPos "file" `Descr` "File containing event play script"
     `andBy` optFlag "" "filter" `Descr` "Which perspective to filter"
 
-applyArgsToInterpreter :: (InputFile -> Filter -> OutputText) -> Arguments -> IO ()
-
-applyArgsToInterpreter interpretAndFilterEventPlayScript arguments = putStrLn "hello from applyArgsToInterpreter"
+applyArgsToInterpreter :: Arguments -> IO ()
+applyArgsToInterpreter arguments = putStrLn "hello from applyArgsToInterpreter"
 
 main :: IO ()
--- main = withParseResult argumentParser (applyArgsToInterpreter interpretAndFilterEventPlayScript)
-
+main = withParseResult argumentParser applyArgsToInterpreter
