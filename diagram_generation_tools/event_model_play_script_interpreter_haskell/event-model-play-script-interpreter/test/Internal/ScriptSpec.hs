@@ -8,7 +8,7 @@ import Internal.Script
 spec :: Spec
 spec = do 
     describe "hideUnnecessaryLines" $ do
-        it "hides the expected lines and gives back expected script" $do
+        it "hides the expected lines and gives back expected script" $ do
             let inputScript = [ (Line "Designers" (Broadcast (REQUEST "Converter" "convert" "awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat")))
                               , (Line "Converter" (Event (ReceivedBroadcast (REQUEST "Designers" "convert" "awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"))))
                               , (Line "Converter" (Event (Action "apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate")))
