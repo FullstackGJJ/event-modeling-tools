@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 31d262dc63a62f81e7f234ed8606474fb4fdb092104233bbe2a304a782b4ebd5
+-- hash: 08a6a7f421b835ffa9d3062413f59e0d29669b9b03229a3725108a08b170781e
 
 name:           event-model-play-script-interpreter
 version:        0.1.0.0
@@ -58,7 +58,6 @@ test-suite event-model-play-script-interpreter-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      FunctionsSpec
       Internal.ScriptSpec
       Paths_event_model_play_script_interpreter
   hs-source-dirs:
