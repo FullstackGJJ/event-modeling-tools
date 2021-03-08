@@ -1,4 +1,4 @@
-module InternalDomains.ScriptDomain.Data where
+module EventPlayScript.Script.Data where
 
 type Actor = String
 

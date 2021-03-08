@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 153fb7d9850f62e2a401fbe8db1103c8f5489f15482638f4fdaf7e402a39284b
+-- hash: 56a8d25ed6947804fdcd826769a02ae41968a0dd19963b45c7451668f39b3d6b
 
 name:           event-model-play-script-interpreter
 version:        0.1.0.0
@@ -27,12 +27,13 @@ source-repository head
 
 library
   exposed-modules:
-      Data
+      EventPlayScript.Data
+      EventPlayScript.Functions
+      EventPlayScript.InternalFunctions
+      EventPlayScript.Script.Data
+      EventPlayScript.Script.Functions
+      EventPlayScript.Script.InternalFunctions
       Functions
-      InternalDomains.ScriptDomain.Data
-      InternalDomains.ScriptDomain.Functions
-      InternalDomains.ScriptDomain.InternalFunctions
-      InternalFunctions
   other-modules:
       Paths_event_model_play_script_interpreter
   hs-source-dirs:
@@ -61,10 +62,10 @@ test-suite event-model-play-script-interpreter-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      FunctionsSpec
-      InternalDomains.ScriptDomain.FunctionsSpec
-      InternalDomains.ScriptDomain.InternalFunctionsSpec
-      InternalFunctionsSpec
+      EventPlayScript.FunctionsSpec
+      EventPlayScript.InternalFunctionsSpec
+      EventPlayScript.Script.FunctionsSpec
+      EventPlayScript.Script.InternalFunctionsSpec
       Paths_event_model_play_script_interpreter
   hs-source-dirs:
       test

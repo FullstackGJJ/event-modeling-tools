@@ -1,6 +1,6 @@
-module Data where
+module EventPlayScript.Data where
 
-import InternalDomains.ScriptDomain.Data
+import qualified EventPlayScript.Script.Data as SD
 
 type Name = String
 
@@ -33,5 +33,5 @@ data EventPlayScript = EventPlayScript {
     setting::Setting,
     scope::Scope,
     scenario::Scenario,
-    script::Script
+    script::SD.Script
 } deriving (Eq, Show)

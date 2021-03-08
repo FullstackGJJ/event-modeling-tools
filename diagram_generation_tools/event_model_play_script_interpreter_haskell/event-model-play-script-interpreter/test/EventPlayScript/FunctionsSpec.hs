@@ -1,12 +1,11 @@
-module FunctionsSpec (spec) where
+module EventPlayScript.FunctionsSpec (spec) where
 
 import Test.Hspec
 
-import Data
-import Functions
-import InternalFunctions
-import InternalDomains.ScriptDomain.Data
-import InternalDomains.ScriptDomain.Functions
+import EventPlayScript.Data
+import EventPlayScript.Functions as Functions
+import EventPlayScript.Script.Data
+import EventPlayScript.Script.Functions
 
 spec :: Spec
 spec = do 

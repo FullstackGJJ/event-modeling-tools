@@ -1,9 +1,9 @@
-module InternalDomains.ScriptDomain.FunctionsSpec (spec) where
+module EventPlayScript.Script.FunctionsSpec (spec) where
 
 import Test.Hspec
 
-import InternalDomains.ScriptDomain.Data
-import InternalDomains.ScriptDomain.Functions
+import EventPlayScript.Script.Data
+import EventPlayScript.Script.Functions
 
 spec :: Spec
 spec = do 

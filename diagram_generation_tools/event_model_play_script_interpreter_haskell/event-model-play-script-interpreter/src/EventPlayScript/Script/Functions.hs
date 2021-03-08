@@ -1,10 +1,10 @@
-module InternalDomains.ScriptDomain.Functions where
+module EventPlayScript.Script.Functions where
 
 import Data.Text
 import Data.Text.Conversions
 
-import InternalDomains.ScriptDomain.Data
-import InternalDomains.ScriptDomain.InternalFunctions
+import EventPlayScript.Script.Data
+import qualified EventPlayScript.Script.InternalFunctions as I
 
 -----------------Function Declarations-----------------
 hideUnnecessaryLines :: Script -> FilterParameter -> Script
@@ -13,8 +13,8 @@ mentionedInScript :: Script -> String -> Bool
 
 ----------------Function Implementations----------------
 hideUnnecessaryLines script filterParameter = 
-    Prelude.map (filterLine filterParameter) script 
+    Prelude.map (I.filterLine filterParameter) script 
 
-actorInScript script actor = Prelude.any (actorInLine actor) script
+actorInScript script actor = Prelude.any (I.actorInLine actor) script
 
-mentionedInScript script word = Prelude.any (mentionedInLine word) script
+mentionedInScript script word = Prelude.any (I.mentionedInLine word) script

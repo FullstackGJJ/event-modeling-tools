@@ -13,8 +13,7 @@ import System.IO
 import System.Console.ArgParser 
 import Text.Pretty.Simple (pPrint)
 
-import Functions ( filter )
-import Data 
+import Functions
 
 data Arguments = Arguments String String deriving (Show)
 
