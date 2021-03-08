@@ -1,10 +1,12 @@
-module Functions (Functions.filter) where
+module Functions where
 
 import Data.Text
 import Data.Text.Conversions
 
 import Data
-import Internal.Script
+import InternalFunctions
+import InternalDomains.ScriptDomain.Data
+import InternalDomains.ScriptDomain.Functions
 
 filter :: EventPlayScript -> FilterParameter -> EventPlayScript
 filter eventPlayScript filterParameter =
@@ -16,9 +18,3 @@ filter eventPlayScript filterParameter =
                        , users = updatedUsers
                        , systems = updatedSystems
                        , dataTypes = updatedDataTypes }
-
-data SearchParameter = ActorName | LineContent
-
-filterDefinitionsByScript :: Script -> [ Definition ] -> SearchParameter -> [ Definition ]
-filterDefinitionsByScript script definitions ActorName = Prelude.filter (\x -> (actorInScript script) (name x)) definitions
-filterDefinitionsByScript script word LineContent = Prelude.filter (\x -> (mentionedInScript script) (name x)) word

@@ -1,56 +1,16 @@
-module Internal.Script where
+module InternalDomains.ScriptDomain.InternalFunctions where
 
 import Data.Text
 import Data.Text.Conversions
 
-type Actor = String
+import InternalDomains.ScriptDomain.Data
 
-type ActionContent = String
-
-type Method = String
-
-type Parameters = String
-
-type Response = String
-
-type HiddenSymbol = String
-
-data Broadcast = REQUEST Actor Method Parameters 
-               | RESPONSE Actor Method Response deriving (Eq, Show)
-
-data Event = ReceivedBroadcast Broadcast 
-           | Action ActionContent deriving (Eq, Show)
-
-data ScriptLine = Event Event
-                | Broadcast Broadcast deriving (Eq, Show)
-
-data ActorScriptLine = Line Actor ScriptLine
-                     | HiddenLine HiddenSymbol deriving (Eq, Show)
-
-type Script = [ ActorScriptLine ]
-
-type FilterParameter = String
-
-----------------------Public Functions------------------------------
-
-hideUnnecessaryLines :: Script -> FilterParameter -> Script
-actorInScript :: Script -> String -> Bool
-mentionedInScript :: Script -> String -> Bool
-
-hideUnnecessaryLines script filterParameter = 
-    let lineFilter = filterLine filterParameter
-    in Prelude.map lineFilter script 
-
-actorInScript script actor = Prelude.any (actorInLine actor) script
-
-mentionedInScript script word = Prelude.any (mentionedInLine word) script
-
----------------------Private Functions------------------------------
-
+-----------------Function Declarations-----------------
 actorInLine :: String -> ActorScriptLine -> Bool
 mentionedInLine :: String -> ActorScriptLine -> Bool
 filterLine :: FilterParameter -> ActorScriptLine -> ActorScriptLine
 
+----------------Function Implementations----------------
 actorInLine actorName (HiddenLine hiddenSymbol) = False
 actorInLine actorName (Line actorInLine scriptLine) = 
     if toText actorName `isInfixOf` toText actorInLine

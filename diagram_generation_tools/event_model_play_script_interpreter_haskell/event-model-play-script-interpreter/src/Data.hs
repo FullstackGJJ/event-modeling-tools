@@ -1,6 +1,6 @@
 module Data where
 
-import Internal.Script
+import InternalDomains.ScriptDomain.Data
 
 type Name = String
 
