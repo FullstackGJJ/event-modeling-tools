@@ -8,7 +8,7 @@ import InternalDomains.ScriptDomain.Functions
 spec :: Spec
 spec = do 
     describe "hideUnnecessaryLines" $ do
-        it "hides the expected lines and gives back expected script" $ do
+        it "should hide the expected lines and gives back expected script when filtering on input actor name" $ do
             let inputScript = [ (Line "Designers" (Broadcast (REQUEST "Converter" "convert" "awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat")))
                               , (Line "Converter" (Event (ReceivedBroadcast (REQUEST "Designers" "convert" "awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"))))
                               , (Line "Converter" (Event (Action "apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate")))
@@ -33,7 +33,7 @@ spec = do
 
             hideUnnecessaryLines inputScript inputFilterParameter `shouldBe` expectedResult
     describe "actorInScript" $ do
-        it "correctly determines that the actor has a line in the script" $ do
+        it "should determine that the actor has a line in the script when given a line that the actor is assigned to" $ do
             let inputScript = [ HiddenLine "..."
                               , (Line "Converter" (Event (ReceivedBroadcast (REQUEST "Designers" "convert" "awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"))))
                               , (Line "Converter" (Event (Action "apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate")))
@@ -47,7 +47,7 @@ spec = do
             let expectedResult = True
             actorInScript inputScript inputActor `shouldBe` expectedResult
 
-        it "correctly determines that the actor is mentioned in the script" $ do
+        it "should determine that the actor is mentioned in the script when anyone mentions them" $ do
             let inputScript = [ HiddenLine "..."
                               , (Line "Converter" (Event (ReceivedBroadcast (REQUEST "Designers" "convert" "awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"))))
                               , (Line "Converter" (Event (Action "apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate")))
@@ -61,7 +61,7 @@ spec = do
             let expectedResult = True
             actorInScript inputScript inputActor `shouldBe` expectedResult
 
-        it "correctly determines that the actor is not in the script" $ do
+        it "determine that the actor is not in the script when actor plays no part" $ do
             let inputScript = [ HiddenLine "..."
                               , (Line "Converter" (Event (ReceivedBroadcast (REQUEST "Designers" "convert" "awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"))))
                               , (Line "Converter" (Event (Action "apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate")))
@@ -76,7 +76,7 @@ spec = do
             actorInScript inputScript inputActor `shouldBe` expectedResult
 
     describe "mentionedInScript" $ do
-        it "correctly determines that the datatype is in the script" $ do
+        it "should determine that the datatype is in the script when datatype in mentioned" $ do
             let inputScript = [ HiddenLine "..."
                               , (Line "Converter" (Event (ReceivedBroadcast (REQUEST "Designers" "convert" "awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"))))
                               , (Line "Converter" (Event (Action "apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate")))
@@ -90,7 +90,7 @@ spec = do
             let expectedResult = True
             mentionedInScript inputScript inputDataType `shouldBe` expectedResult
 
-        it "correctly determines that the datatype is not in the script" $ do
+        it "should determines that the datatype is not in the script when datatype is not mentioned anywhere" $ do
             let inputScript = [ HiddenLine "..."
                               , (Line "Converter" (Event (ReceivedBroadcast (REQUEST "Designers" "convert" "awesomeJson:DocumentTemplate massEffect1:OldDocumentDataFormat massEffect2:NewDocumentDataFormat"))))
                               , (Line "Converter" (Event (Action "apply massEffectRule:SubstitutionRule to awesomeJson:DocumentTemplate")))

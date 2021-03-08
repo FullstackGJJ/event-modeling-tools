@@ -9,7 +9,7 @@ import InternalDomains.ScriptDomain.Data
 spec :: Spec
 spec = do 
     describe "filterDefinitionsByScript" $ do
-        it "correctly filter actor names by actors involved in the script" $ do
+        it "correctly filters actor names by actors involved in the script" $ do
             let inputScript = [ HiddenLine "..."
                               , HiddenLine "..."
                               , HiddenLine "..."
@@ -30,7 +30,7 @@ spec = do
 
             filterDefinitionsByScript inputScript inputDefinitions ActorName `shouldBe` expectedResult
 
-        it "correctly data type names by what's mentioned in the script" $ do
+        it "correctly filters data type names by what's mentioned in the script" $ do
             let inputScript = [ HiddenLine "..."
                               , HiddenLine "..."
                               , HiddenLine "..."

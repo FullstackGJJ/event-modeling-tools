@@ -34,4 +34,4 @@ data EventPlayScript = EventPlayScript {
     scope::Scope,
     scenario::Scenario,
     script::Script
-} deriving (Show)
+} deriving (Eq, Show)

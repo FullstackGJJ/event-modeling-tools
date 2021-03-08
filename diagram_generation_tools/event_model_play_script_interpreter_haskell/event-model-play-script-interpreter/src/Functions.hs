@@ -8,7 +8,10 @@ import InternalFunctions
 import InternalDomains.ScriptDomain.Data
 import InternalDomains.ScriptDomain.Functions
 
+-----------------Function Declarations-----------------
 filter :: EventPlayScript -> FilterParameter -> EventPlayScript
+
+----------------Function Implementations----------------
 filter eventPlayScript filterParameter =
     let filteredScript = hideUnnecessaryLines (script eventPlayScript) filterParameter
         updatedUsers = filterDefinitionsByScript filteredScript (users eventPlayScript) ActorName
