@@ -1,0 +1,14 @@
+Functional language instructions to engineering team for what designer has in mind from start to finish
+
+text_only_tests = [
+	{
+		"Input": "File /manual_testing/scenario_1/input_file.txt",
+		"Expectation": "Match expectations.txt documented behavior"
+	}
+] // Done
+
+algebra_design = create_algebra_design // In Progress
+
+text_only_play_script_interpreter = create_play_script_interpreter algebra_design text_only_tests
+
+
