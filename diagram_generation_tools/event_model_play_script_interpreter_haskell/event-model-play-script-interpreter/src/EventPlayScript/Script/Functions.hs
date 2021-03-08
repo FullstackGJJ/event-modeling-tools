@@ -12,8 +12,7 @@ actorInScript :: Script -> String -> Bool
 mentionedInScript :: Script -> String -> Bool
 
 ----------------Function Implementations----------------
-hideUnnecessaryLines script filterParameter = 
-    Prelude.map (I.filterLine filterParameter) script 
+hideUnnecessaryLines script filterParameter = Prelude.map (I.filterLine filterParameter) script 
 
 actorInScript script actor = Prelude.any (I.actorInLine actor) script
 
