@@ -9,7 +9,7 @@ import EventPlayScript.Script.Data
 spec :: Spec
 spec = do 
     describe "filterDefinitionsByScript" $ do
-        it "correctly filters actor names by actors involved in the script" $ do
+        it "should only return actor names involved in the script when given script and actor names" $ do
             let inputScript = [ HiddenLine "..."
                               , HiddenLine "..."
                               , HiddenLine "..."
@@ -30,7 +30,7 @@ spec = do
 
             filterDefinitionsByScript inputScript inputDefinitions ActorName `shouldBe` expectedResult
 
-        it "correctly filters data type names by what's mentioned in the script" $ do
+        it "should only return data type names that are mentioned in the script when given script and data type names" $ do
             let inputScript = [ HiddenLine "..."
                               , HiddenLine "..."
                               , HiddenLine "..."

@@ -10,7 +10,7 @@ import EventPlayScript.Script.Functions
 spec :: Spec
 spec = do 
     describe "filter" $ do
-        it "should return properly filtered event play script when under normal circumstance" $ do
+        it "should return expected filtered event play script when given event play script and actor name to filter on" $ do
             let inputEventPlayScript = EventPlayScript {
                 users = [ Definition { name = "Designers", description = "" } ],
                 systems = [ Definition { name = "Converter", description = "" }

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 56a8d25ed6947804fdcd826769a02ae41968a0dd19963b45c7451668f39b3d6b
+-- hash: 4c4b290f3bd8ce11f67be0190b25141af19a59812f111c07b6142b0bf0aac3ae
 
 name:           event-model-play-script-interpreter
 version:        0.1.0.0
@@ -34,6 +34,10 @@ library
       EventPlayScript.Script.Functions
       EventPlayScript.Script.InternalFunctions
       Functions
+      InputTextParsing.Data
+      InputTextParsing.Functions
+      InputTextParsing.InternalFunctions
+      InternalFunctions
   other-modules:
       Paths_event_model_play_script_interpreter
   hs-source-dirs:
