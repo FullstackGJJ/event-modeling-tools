@@ -4,11 +4,22 @@ text_only_tests = [
 	{
 		"Input": "File /manual_testing/scenario_1/input_file.txt",
 		"Expectation": "Match expectations.txt documented behavior"
+	},
+	{
+		"Input": "File /manual_testing/scenario_2/input_file.txt",
+		"Expectation": "Match expectations.txt documented behavior"
 	}
 ] // Done
 
 algebra_design = create_algebra_design // In Progress
 
-text_only_play_script_interpreter = create_play_script_interpreter algebra_design text_only_tests
+event_play_script_interpreter = create_play_script_interpreter algebra_design text_only_tests
 
+quality_assurance_tests = [
+    {
+        "Input": File /manual_testing/scenario_3/input_file.txt",
+        "Expectation": "Match expectations.txt documented behavior"
+    }
+]
 
+enhanced_event_play_script_interpreter = enhance event_play_script_interpreter quality_assurance_tests

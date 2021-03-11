@@ -12,14 +12,14 @@ spec = do
     describe "filter" $ do
         it "should return expected filtered event play script when given event play script and actor name to filter on" $ do
             let inputEventPlayScript = EventPlayScript {
-                users = [ Definition { name = "Designers", description = "" } ],
-                systems = [ Definition { name = "Converter", description = "" }
-                          , Definition { name = "Reporting", description = "" } ],
-                dataTypes = [ Definition { name = "DocumentTemplate", description = "" } 
-                            , Definition { name = "DocumentPdf", description = "" } 
-                            , Definition { name = "OldDocumentDataFormat", description = "" } 
-                            , Definition { name = "NewDocumentDataFormat", description = "" } 
-                            , Definition { name = "SubstitutionRule", description = "" } ],
+                users = [ ActorProfile { apName = "Designers", apDescription = "" } ],
+                systems = [ ActorProfile { apName = "Converter", apDescription = "" }
+                          , ActorProfile { apName = "Reporting", apDescription = "" } ],
+                dataTypes = [ DataType { dtName = "DocumentTemplate", dtDescription = "" } 
+                            , DataType { dtName = "DocumentPdf", dtDescription = "" } 
+                            , DataType { dtName = "OldDocumentDataFormat", dtDescription = "" } 
+                            , DataType { dtName = "NewDocumentDataFormat", dtDescription = "" } 
+                            , DataType { dtName = "SubstitutionRule", dtDescription = "" } ],
                 setting = "Test setting",
                 scope = "Test scope",
                 scenario = "Test scenario",
@@ -35,14 +35,14 @@ spec = do
             }
             let inputFilterParameter = "Converter"
             let expectedResult = EventPlayScript {
-                users = [ Definition { name = "Designers", description = "" } ],
-                systems = [ Definition { name = "Converter", description = "" }
-                          , Definition { name = "Reporting", description = "" } ],
-                dataTypes = [ Definition { name = "DocumentTemplate", description = "" } 
-                            , Definition { name = "DocumentPdf", description = "" } 
-                            , Definition { name = "OldDocumentDataFormat", description = "" } 
-                            , Definition { name = "NewDocumentDataFormat", description = "" } 
-                            , Definition { name = "SubstitutionRule", description = "" } ],
+                users = [ ActorProfile { apName = "Designers", apDescription = "" } ],
+                systems = [ ActorProfile { apName = "Converter", apDescription = "" }
+                          , ActorProfile { apName = "Reporting", apDescription = "" } ],
+                dataTypes = [ DataType { dtName = "DocumentTemplate", dtDescription = "" } 
+                            , DataType { dtName = "DocumentPdf", dtDescription = "" } 
+                            , DataType { dtName = "OldDocumentDataFormat", dtDescription = "" } 
+                            , DataType { dtName = "NewDocumentDataFormat", dtDescription = "" } 
+                            , DataType { dtName = "SubstitutionRule", dtDescription = "" } ],
                 setting = "Test setting",
                 scope = "Test scope",
                 scenario = "Test scenario",

@@ -14,9 +14,9 @@ filter :: EventPlayScript -> SD.FilterParameter -> EventPlayScript
 ----------------Function Implementations----------------
 filter eventPlayScript filterParameter =
     let filteredScript = SF.hideUnnecessaryLines (script eventPlayScript) filterParameter
-        updatedUsers = I.filterDefinitionsByScript filteredScript (users eventPlayScript) I.ActorName
-        updatedSystems = I.filterDefinitionsByScript filteredScript (systems eventPlayScript) I.ActorName
-        updatedDataTypes = I.filterDefinitionsByScript filteredScript (dataTypes eventPlayScript) I.LineContent
+        updatedUsers = I.filterActorProfilesByScript filteredScript (users eventPlayScript)
+        updatedSystems = I.filterActorProfilesByScript filteredScript (systems eventPlayScript)
+        updatedDataTypes = I.filterDataTypesByScript filteredScript (dataTypes eventPlayScript)
     in eventPlayScript { script = filteredScript
                        , users = updatedUsers
                        , systems = updatedSystems
