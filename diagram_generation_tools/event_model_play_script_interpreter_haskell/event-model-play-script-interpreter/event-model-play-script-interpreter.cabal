@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7ee72b03cf9a74a98dea612357be745126d44906ce0abb3effd88c376e8a40e7
+-- hash: 3eed9fa8ea6dee010ff0f627e3e7fef67397cba211b35927448255a7aa02cfcf
 
 name:           event-model-play-script-interpreter
 version:        0.1.0.0
@@ -43,7 +43,8 @@ library
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      MissingH
+    , base >=4.7 && <5
     , text
     , text-conversions
   default-language: Haskell2010

@@ -27,6 +27,7 @@ library:
   dependencies:
   - text
   - text-conversions
+  - MissingH
 
 executables:
   event-model-play-script-interpreter-exe:
