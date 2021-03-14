@@ -8,7 +8,7 @@ import EventPlayScript.Script.Data
 
 spec :: Spec
 spec = do 
-    describe "filterDefinitionsByScript" $ do
+    describe "filterActorProfilesByScript" $ do
         it "should only return actor names involved in the script when given script and actor names" $ do
             let inputScript = [ HiddenLine "..."
                               , HiddenLine "..."
@@ -20,15 +20,15 @@ spec = do
                               , HiddenLine "..."
                               , HiddenLine "..." ]
 
-            let inputDefinitions = [ Definition { name = "Designers", description = "" } 
-                                   , Definition { name = "Converter", description = "" }
-                                   , Definition { name = "Reporting", description = "" }
-                                   , Definition { name = "Repository", description = "" } ]
+            let inputActorProfiles = [ ActorProfile { apName = "Designers", apDescription = "" } 
+                                     , ActorProfile { apName = "Converter", apDescription = "" }
+                                     , ActorProfile { apName = "Reporting", apDescription = "" }
+                                     , ActorProfile { apName = "Repository", apDescription = "" } ]
 
-            let expectedResult = [ Definition { name = "Converter", description = "" }
-                                 , Definition { name = "Reporting", description = "" } ]
+            let expectedResult = [ ActorProfile { apName = "Converter", apDescription = "" }
+                                 , ActorProfile { apName = "Reporting", apDescription = "" } ]
 
-            filterDefinitionsByScript inputScript inputDefinitions ActorName `shouldBe` expectedResult
+            filterActorProfilesByScript inputScript inputActorProfiles `shouldBe` expectedResult
 
         it "should only return data type names that are mentioned in the script when given script and data type names" $ do
             let inputScript = [ HiddenLine "..."
@@ -41,12 +41,12 @@ spec = do
                               , HiddenLine "..."
                               , HiddenLine "..." ]
 
-            let inputDatatypes = [ Definition { name = "DocumentTemplate", description = "" } 
-                                 , Definition { name = "DocumentPdf", description = "" }
-                                 , Definition { name = "Success", description = "" }
-                                 , Definition { name = "SubstitutionRule", description = "" } ]
+            let inputDatatypes = [ DataType { dtName = "DocumentTemplate", dtDescription = "" } 
+                                 , DataType { dtName = "DocumentPdf", dtDescription = "" }
+                                 , DataType { dtName = "Success", dtDescription = "" }
+                                 , DataType { dtName = "SubstitutionRule", dtDescription = "" } ]
 
-            let expectedResult = [ Definition { name = "DocumentTemplate", description = "" }
-                                 , Definition { name = "DocumentPdf", description = "" } ]
+            let expectedResult = [ DataType { dtName = "DocumentTemplate", dtDescription = "" }
+                                 , DataType { dtName = "DocumentPdf", dtDescription = "" } ]
 
-            filterDefinitionsByScript inputScript inputDatatypes LineContent `shouldBe` expectedResult
+            filterDataTypesByScript inputScript inputDatatypes `shouldBe` expectedResult

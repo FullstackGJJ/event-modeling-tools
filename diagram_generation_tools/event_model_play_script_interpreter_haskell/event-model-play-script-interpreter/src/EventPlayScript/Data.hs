@@ -6,17 +6,17 @@ type Name = String
 
 type Description = String
 
-data Definition = Definition { name::Name, description::Description } deriving (Eq, Show)
+data ActorProfile = ActorProfile { apName::Name, apDescription::Description } deriving (Eq, Show)
 
-type User = Definition
+type User = ActorProfile
 
 type Users = [ User ]
 
-type System = Definition
+type System = ActorProfile
 
 type Systems = [ System ]
 
-type DataType = Definition
+data DataType = DataType { dtName::Name, dtDescription::Description } deriving (Eq, Show)
 
 type DataTypes = [ DataType ]
 
